@@ -1,8 +1,10 @@
-package com.javaweb.springbootnonjwt.service;
+package com.javaweb.springbootnonjwt.service.Impl;
 
 import com.javaweb.springbootnonjwt.DTO.BuidingDTO;
 import com.javaweb.springbootnonjwt.repository.DistrictRepository;
 import com.javaweb.springbootnonjwt.repository.entity.DistrictEntity;
+import com.javaweb.springbootnonjwt.service.DistrictService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

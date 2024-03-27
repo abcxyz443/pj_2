@@ -18,9 +18,9 @@ import java.util.Map;
 public class DistrictRespositoryImpl implements DistrictRepository {
     @Override
     public DistrictEntity findById(int id) {
-        String sql = "Select * from district inner join building on building.districtid = district.id ";
+        String sql = "Select * from district ";
 
-        String where = "Where building.districtid = " + id;
+        String where = "Where id = " + id;
         sql += where;
        DistrictEntity districtEntity = new DistrictEntity();
         try(Connection conn = ConnectionUtil.getConnection();

@@ -1,7 +1,9 @@
-package com.javaweb.springbootnonjwt.service;
+package com.javaweb.springbootnonjwt.service.Impl;
 
 import com.javaweb.springbootnonjwt.repository.RentAreaReponsitory;
 import com.javaweb.springbootnonjwt.repository.entity.RentAreaEntity;
+import com.javaweb.springbootnonjwt.service.RentAreaService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

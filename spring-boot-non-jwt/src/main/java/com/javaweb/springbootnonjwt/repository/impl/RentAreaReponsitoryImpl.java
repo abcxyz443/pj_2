@@ -18,8 +18,7 @@ public class RentAreaReponsitoryImpl implements RentAreaReponsitory {
     @Override
     public List<RentAreaEntity> findById(int id) {
         String sql = "Select * from rentarea " +
-                "inner join building on building.id = rentarea.buildingid " +
-                "where building.id = " + id;
+                "where buildingid = " + id;
         List<RentAreaEntity> result = new ArrayList<RentAreaEntity>();
         try(Connection conn = ConnectionUtil.getConnection();
             Statement stm = conn.createStatement();

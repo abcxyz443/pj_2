@@ -26,7 +26,6 @@ public class BuildingRepositoryImpl implements BuildingRepository {
             where += " AND building.floorarea = " + params.get("floorarea") +" ";
         }
         if(params.get("districtId") != null){
-            join += " inner join district on building.districtId = district.id ";
             where += " AND building.districtId = " + params.get("districtId") +" ";
         }
         if(params.containsKey("ward") && !params.get("ward").equals("")){
