@@ -37,8 +37,8 @@ public class BuildingAPI {
     @GetMapping(value = "/api/building")
     public List<BuidingDTO> findBuilding(@RequestParam Map<String,Object> params,
                                          @RequestParam(value = "typeCode",required = false) List<String> typeCode){
-        List<BuidingDTO> result = buildingService.findAll(params, typeCode);
-        return result;
+        List<BuidingDTO> rs = buildingService.findAll(params, typeCode);
+        return rs;
     }
 //
 //    public void validateData(BuidingDTO buidingDTO){
