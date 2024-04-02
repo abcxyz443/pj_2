@@ -15,8 +15,8 @@ public class RentAreaServiceImpl implements  RentAreaService{
     private RentAreaReponsitory rentAreaReponsitory;
 
     @Override
-    public List<RentAreaEntity> findById(int id) {
-        List<RentAreaEntity> rentAreaEntities = rentAreaReponsitory.findById(id);
+    public List<RentAreaEntity> findByBuildingId(int id) {
+        List<RentAreaEntity> rentAreaEntities = rentAreaReponsitory.findByBuildingId(id);
         return rentAreaEntities;
     }
 }

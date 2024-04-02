@@ -5,5 +5,5 @@ import com.javaweb.springbootnonjwt.repository.entity.RentAreaEntity;
 import java.util.List;
 
 public interface RentAreaReponsitory {
-    List<RentAreaEntity> findById(int id);
+    List<RentAreaEntity> findByBuildingId(int id);
 }

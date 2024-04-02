@@ -16,9 +16,9 @@ import java.util.List;
 @Repository
 public class RentAreaReponsitoryImpl implements RentAreaReponsitory {
     @Override
-    public List<RentAreaEntity> findById(int id) {
+    public List<RentAreaEntity> findByBuildingId(int id) {
         String sql = "Select * from rentarea " +
-                "where buildingid = " + id;
+                " where buildingid = " + id;
         List<RentAreaEntity> result = new ArrayList<RentAreaEntity>();
         try(Connection conn = ConnectionUtil.getConnection();
             Statement stm = conn.createStatement();

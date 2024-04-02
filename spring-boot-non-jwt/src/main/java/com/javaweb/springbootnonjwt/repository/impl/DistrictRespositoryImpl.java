@@ -18,10 +18,7 @@ import java.util.Map;
 public class DistrictRespositoryImpl implements DistrictRepository {
     @Override
     public DistrictEntity findById(int id) {
-        String sql = "Select * from district ";
-
-        String where = "Where id = " + id;
-        sql += where;
+        String sql = "Select * from district Where id = " + id;
        DistrictEntity districtEntity = new DistrictEntity();
         try(Connection conn = ConnectionUtil.getConnection();
             Statement stm = conn.createStatement();
