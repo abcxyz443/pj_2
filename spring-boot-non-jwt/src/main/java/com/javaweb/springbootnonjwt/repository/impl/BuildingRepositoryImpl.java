@@ -12,6 +12,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Repository
 public class BuildingRepositoryImpl implements BuildingRepository {
@@ -32,7 +33,8 @@ public class BuildingRepositoryImpl implements BuildingRepository {
                     " inner join  renttype rt on rt.id = brt.renttypeid ");
         }
     }
-    public void queryWhereNomal(Map<String,Object> params, List<String> typeCode, StringBuilder where){
+    //dieu kien don gian
+    public void queryWhereNomal(Map<String,Object> params, StringBuilder where){
         for(Map.Entry<String,Object> item: params.entrySet()){
             if(!item.getKey().equals("staffId") && !item.getKey().equals("typeCode") && !item.getKey().startsWith("area")
                 && !item.getKey().startsWith("rentPrice")){
@@ -47,7 +49,7 @@ public class BuildingRepositoryImpl implements BuildingRepository {
             }
         }
     }
-
+    //dieu kien phuc tap
     public void queryWhereSpecial(Map<String,Object> params, List<String> typeCode, StringBuilder where){
         String staffId = (String)params.get("staffId");
         if(StringUtil.checkString(staffId)){
@@ -63,20 +65,25 @@ public class BuildingRepositoryImpl implements BuildingRepository {
         }
         String rentPriceFrom = (String)params.get("rentPriceMin");
         String rentPriceTo = (String)params.get("rentPriceMax");
-        if(StringUtil.checkString(rentAreaFrom) ){
+        if(StringUtil.checkString(rentPriceFrom) ){
             where.append(" AND b.rentprice >= " + rentPriceFrom);
         }
         if(StringUtil.checkString(rentAreaTo)){
             where.append(" AND b.rentprice <= " + rentPriceTo);
         }
         //Java 7
+//        if(typeCode != null && !typeCode.isEmpty()){
+//            for(int i=0;i<typeCode.size();i++){
+//                where.append(" renttype.code like '%" + typeCode.get(i) +"%' ");
+//                if(i != typeCode.size()-1){
+//                    where.append(" OR ");
+//                }
+//            }
+//        }
         if(typeCode != null && !typeCode.isEmpty()){
-            for(int i=0;i<typeCode.size();i++){
-                where.append(" renttype.code like '%" + typeCode.get(i) +"%' ");
-                if(i != typeCode.size()-1){
-                    where.append(" OR ");
-                }
-            }
+            where.append(" AND (");
+            String sqlJoin = typeCode.stream().map(item -> " rt.code like '%"+ item + "%' " ).collect(Collectors.joining(" OR "));
+            where.append(sqlJoin + ") ");
         }
     }
     @Override
@@ -89,11 +96,11 @@ public class BuildingRepositoryImpl implements BuildingRepository {
         queryJoin(params,typeCode,sql);
 
         StringBuilder where = new StringBuilder("Where 1=1 ");
-        queryWhereNomal(params,typeCode,where);
+        queryWhereNomal(params,where);
         queryWhereSpecial(params,typeCode,where);
 
         sql.append(where);
-        sql.append(" Group by b.id");
+        sql.append(" Group by b.id ");
         List<BuildingEntity> result = new ArrayList<BuildingEntity>();
         try(Connection conn = ConnectionUtil.getConnection();
             Statement stm = conn.createStatement();
