@@ -7,6 +7,7 @@ import com.javaweb.springbootnonjwt.repository.entity.RentAreaEntity;
 import com.javaweb.springbootnonjwt.service.BuildingService;
 import com.javaweb.springbootnonjwt.service.DistrictService;
 import com.javaweb.springbootnonjwt.service.RentAreaService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,26 +20,19 @@ public class BuildingConverter {
     private DistrictService districtService;
     @Autowired
     private RentAreaService rentAreaService;
+    @Autowired
+    private ModelMapper modelMapper;
     public BuidingDTO toBuildingDTO(BuildingEntity item){
-        BuidingDTO buildingDTO = new BuidingDTO();
-        buildingDTO.setName(item.getName());
+        BuidingDTO buildingDTO = modelMapper.map(item, BuidingDTO.class); //genaric class
         DistrictEntity districtEntity = districtService.findById(item.getDistrictId());
         buildingDTO.setStreet(item.getStreet() +"," + item.getWard() +"," + districtEntity.getName());
-        buildingDTO.setBasementNumber(item.getNumberOfBasement());
-        buildingDTO.setManagerName(item.getManagerName());
-        buildingDTO.setManagerPhone(item.getManagerPhoneNumber());
-        buildingDTO.setFloorArea(item.getFloorArea());
-        buildingDTO.setEmptyArea(null);
-
         List<RentAreaEntity> rentAreaEntities = rentAreaService.findByBuildingId(item.getId());
         List<String> s = new ArrayList<String>();
         for(RentAreaEntity rentAreaEntity : rentAreaEntities){
             s.add(String.valueOf(rentAreaEntity.getValue()));
         }
         String rentedArea = String.join(",",s);
-
         buildingDTO.setRentedArea(rentedArea);
-        buildingDTO.setRentCode(item.getRentPrice());
         buildingDTO.setServiceFee(item.getServiceFee());
         buildingDTO.setBrokerageFee(item.getBrokerageFee());
         return buildingDTO;
