@@ -79,6 +79,9 @@ public class BuildingRepositoryImpl implements BuildingRepository {
             }
         }
     }
+    public String heloWold(){
+        return "hello";
+    }
     @Override
     public List<BuildingEntity> findAll(Map<String,Object> params, List<String> typeCode) {
         StringBuilder sql = new StringBuilder("Select b.id, b.name, b.districtid, b.street, b.ward" +
