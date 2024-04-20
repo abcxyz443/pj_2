@@ -14,8 +14,8 @@ public class ConnectionUtil {
        try{
            Connection conn = DriverManager.getConnection(url, user, pass);
            return conn;
-       }catch (SQLException e){
-           e.printStackTrace();
+       }catch (SQLException err){
+           err.printStackTrace();
        }
        return null;
    }
