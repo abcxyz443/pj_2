@@ -153,8 +153,8 @@ public class BuildingRepositoryImpl implements BuildingRepository {
                 buildingEntity.setManagerPhoneNumber(rs.getString("managerPhoneNumber"));
                 result.add(buildingEntity);
             }
-        } catch (SQLException err) {
-            err.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return result;
     }
