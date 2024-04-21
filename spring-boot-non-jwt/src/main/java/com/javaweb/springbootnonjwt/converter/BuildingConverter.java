@@ -29,8 +29,8 @@ public class BuildingConverter {
 
         String rentedArea  = item.getRentAreas().stream().map(it -> it.getValue().toString()).collect(Collectors.joining(","));
         buildingDTO.setRentedArea(rentedArea);
-        buildingDTO.setServiceFee(item.getServiceFee());
-        buildingDTO.setBrokerageFee(item.getBrokerageFee());
+//        buildingDTO.setServiceFee(item.getServiceFee());
+//        buildingDTO.setBrokerageFee(item.getBrokerageFee());
         return buildingDTO;
     }
 }
