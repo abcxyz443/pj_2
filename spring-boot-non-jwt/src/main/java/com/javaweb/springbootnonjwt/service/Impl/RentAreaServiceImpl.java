@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 public class RentAreaServiceImpl implements  RentAreaService{
-    @Autowired
+//    @Autowired
     private RentAreaReponsitory rentAreaReponsitory;
 
     @Override

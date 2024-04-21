@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 public class DistrictServiceImpl implements DistrictService{
-    @Autowired
+//    @Autowired
     private DistrictRepository districtRepository;
 
     @Override

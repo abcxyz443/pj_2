@@ -8,4 +8,5 @@ import java.util.Map;
 
 public interface BuildingService {
     List<BuidingDTO> findAll(Map<String,Object> params, List<String> typeCode);
+
 }
