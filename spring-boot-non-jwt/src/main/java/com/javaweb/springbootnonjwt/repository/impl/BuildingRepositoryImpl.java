@@ -68,7 +68,7 @@ public class BuildingRepositoryImpl implements BuildingRepository {
         if(StringUtil.checkString(rentPriceFrom) ){
             where.append(" AND b.rentprice >= " + rentPriceFrom);
         }
-        if(StringUtil.checkString(rentAreaTo)){
+        if(StringUtil.checkString(rentPriceTo)){
             where.append(" AND b.rentprice <= " + rentPriceTo);
         }
         //Java 7
