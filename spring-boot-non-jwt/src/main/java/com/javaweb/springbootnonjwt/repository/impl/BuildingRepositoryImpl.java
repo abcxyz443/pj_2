@@ -3,22 +3,22 @@ package com.javaweb.springbootnonjwt.repository.impl;
 import com.javaweb.springbootnonjwt.builder.BuildingSearchBuilder;
 import com.javaweb.springbootnonjwt.repository.BuildingRepository;
 import com.javaweb.springbootnonjwt.repository.entity.BuildingEntity;
-import com.javaweb.springbootnonjwt.repository.entity.DistrictEntity;
-import com.javaweb.springbootnonjwt.util.ConnectionUtil;
-import com.javaweb.springbootnonjwt.util.NumberUtil;
-import com.javaweb.springbootnonjwt.util.StringUtil;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import java.lang.reflect.Field;
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Repository
+@Primary
 public class BuildingRepositoryImpl implements BuildingRepository {
 
+    @PersistenceContext
+    private EntityManager entityManager;
     //hàm chuyên sử lý join
     public void queryJoin(BuildingSearchBuilder builder, StringBuilder sql){
         Long rentAreaFrom = builder.getAreaFrom();
@@ -133,29 +133,8 @@ public class BuildingRepositoryImpl implements BuildingRepository {
 
         sql.append(where);
         sql.append(" Group by b.id");
-        List<BuildingEntity> result = new ArrayList<BuildingEntity>();
-        try(Connection conn = ConnectionUtil.getConnection();
-            Statement stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery(sql.toString())){
-            while(rs.next()){
-                BuildingEntity buildingEntity = new BuildingEntity();
-                buildingEntity.setId(rs.getInt("id"));
-                buildingEntity.setName(rs.getString("name"));
-                buildingEntity.setWard(rs.getString("ward"));
-                buildingEntity.setStreet(rs.getString("street"));
-                buildingEntity.setDistrictId(rs.getInt("districtId"));
-                buildingEntity.setNumberOfBasement(rs.getLong("numberOfBasement"));
-                buildingEntity.setFloorArea(rs.getLong("floorArea"));
-                buildingEntity.setRentPrice(rs.getLong("rentPrice"));
-                buildingEntity.setServiceFee(rs.getLong("serviceFee"));
-                buildingEntity.setBrokerageFee(rs.getLong("brokerageFee"));
-                buildingEntity.setManagerName(rs.getString("managerName"));
-                buildingEntity.setManagerPhoneNumber(rs.getString("managerPhoneNumber"));
-                result.add(buildingEntity);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return result;
+
+        Query query = entityManager.createNativeQuery(sql.toString(), BuildingEntity.class);
+        return query.getResultList();
     }
 }

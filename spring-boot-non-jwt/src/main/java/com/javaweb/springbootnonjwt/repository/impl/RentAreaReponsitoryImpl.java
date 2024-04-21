@@ -26,8 +26,7 @@ public class RentAreaReponsitoryImpl implements RentAreaReponsitory {
             while(rs.next()){
                 RentAreaEntity rentAreaEntity = new RentAreaEntity();
                 rentAreaEntity.setId(rs.getInt("id"));
-                rentAreaEntity.setBuildingId(rs.getInt("buildingid"));
-                rentAreaEntity.setValue(rs.getInt("value"));
+                rentAreaEntity.setValue(rs.getLong("value"));
                 result.add(rentAreaEntity);
             }
         } catch (SQLException e) {
